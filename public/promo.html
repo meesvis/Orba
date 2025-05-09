@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secret Promo</title>
+    <style>
+        body {
+            background-color: #000;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            font-family: 'Courier New', Courier, monospace; /* Codingly font */
+            overflow-x: hidden; /* Hide horizontal scrollbars */
+            padding: 20px; /* Add some padding for content */
+        }
+        .logo-container {
+            margin-bottom: 30px;
+            opacity: 0; /* Start hidden for fade-in */
+            animation: fadeInElement 1s ease-out forwards;
+            animation-delay: 0.5s; /* Delay logo fade-in slightly */
+        }
+
+        @keyframes fadeInElement {
+            to {
+                opacity: 1;
+            }
+        }
+
+        .logo {
+            width: 200px; /* Adjust as needed */
+            height: auto;
+        }
+        .promo-text {
+            font-size: 2em;
+            text-align: center;
+            margin-bottom: 40px; /* Space before new content */
+        }
+
+        .typewriter-text {
+            overflow: hidden; /* Ensures the text is not visible until typed */
+            white-space: nowrap; /* Keeps the content on a single line */
+            letter-spacing: .1em; /* Adjust as needed */
+            margin: 0.5em 0;
+            display: inline-block; /* Important for width calculation if using border cursor */
+            min-height: 1.2em; /* Prevent layout shift */
+        }
+
+        .typing-cursor::after {
+            content: '_';
+            animation: blink-caret 0.75s step-end infinite;
+            margin-left: 0.1em;
+        }
+
+        @keyframes blink-caret {
+            from, to { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        .additional-content {
+            opacity: 0; /* Hidden initially */
+            animation: fadeInElement 1s ease-out forwards;
+            animation-delay: 0.5s; /* Will be overridden by JS after intro */
+            width: 100%;
+            max-width: 800px; /* Max width for content */
+            text-align: center;
+        }
+
+        .content-section {
+            background-color: #111; /* Slightly lighter than body */
+            border: 1px solid #333;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+        }
+
+        .content-section h2 {
+            color: #00ff99; /* Accent color */
+            margin-top: 0;
+        }
+
+        .content-section ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .content-section ul li {
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+
+        .content-section ul li::before {
+            content: '» ';
+            color: #00ff99; /* Accent color for bullet points */
+        }
+
+        .cta-button {
+            background-color: #00ff99; /* Accent color */
+            color: #000;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            font-family: 'Courier New', Courier, monospace;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .cta-button:hover {
+            background-color: #00cc7a;
+            transform: scale(1.05);
+        }
+
+    </style>
+</head>
+<body>
+    <div class="logo-container">
+        <img src="logo.png" alt="Aora Logo" class="logo">
+    </div>
+    <div class="promo-text">
+        <p id="line1" class="typewriter-text"></p>
+        <p id="line2" class="typewriter-text"></p>
+    </div>
+
+    <div id="additionalContent" class="additional-content" style="opacity: 0; animation: none;"> <!-- Inline style to ensure it's hidden until JS shows it -->
+        <div class="content-section features">
+            <h2>Key Features</h2>
+            <ul>
+                <li>Feature 1: Groundbreaking AI Technology</li>
+                <li>Feature 2: Seamless Integration</li>
+                <li>Feature 3: 24/7 Priority Support</li>
+                <li>Feature 4: Customizable Dashboards</li>
+            </ul>
+        </div>
+
+        <div class="content-section offer">
+            <h2>Limited Time Offer!</h2>
+            <p>Sign up this week and receive an exclusive <strong>50% discount</strong> on your first three months! Don't miss out on this incredible opportunity to revolutionize your workflow.</p>
+        </div>
+
+        <div class="content-section cta">
+            <h2>Ready to Get Started?</h2>
+            <button class="cta-button">Claim Your Discount Now!</button>
+        </div>
+    </div>
+
+    <script>
+        const text1 = "Welcome to the Secret Promo!";
+        const text2 = "More cool stuff coming soon...";
+        const speed = 75; // Speed of typing in milliseconds
+
+        async function typeWriter(elementId, text, initialDelay = 0) {
+            await new Promise(resolve => setTimeout(resolve, initialDelay));
+            const element = document.getElementById(elementId);
+            if (!element) return;
+            element.classList.add('typing-cursor');
+            for (let i = 0; i < text.length; i++) {
+                element.innerHTML += text.charAt(i);
+                await new Promise(resolve => setTimeout(resolve, speed));
+            }
+            element.classList.remove('typing-cursor');
+            element.classList.add('typing-cursor'); 
+        }
+
+        async function startAnimations() {
+            const logoAnimationDelay = 500;
+            const textStartDelay = logoAnimationDelay + 200;
+
+            await typeWriter("line1", text1, textStartDelay);
+            const durationLine1 = text1.length * speed;
+            await typeWriter("line2", text2, 200);
+            const durationLine2 = text2.length * speed;
+
+            // Calculate when the intro is fully done
+            const totalIntroDuration = textStartDelay + durationLine1 + 200 + durationLine2 + 500; // Add some buffer
+
+            // Show additional content after intro
+            setTimeout(() => {
+                const additionalContent = document.getElementById('additionalContent');
+                if (additionalContent) {
+                    additionalContent.style.opacity = '0'; // Reset opacity if set by CSS animation
+                    additionalContent.style.animation = 'fadeInElement 1s ease-out forwards'; // Apply JS controlled animation
+                    additionalContent.style.opacity = '1'; // Set to 1 to trigger animation if it was already forwards
+                }
+            }, totalIntroDuration);
+        }
+
+        document.addEventListener('DOMContentLoaded', startAnimations);
+    </script>
+</body>
+</html> 
