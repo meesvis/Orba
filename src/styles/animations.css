@@ -1,0 +1,106 @@
+/* Typing animation for chat */
+.dot-typing {
+  position: relative;
+  left: -9999px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #10b981;
+  color: #10b981;
+  box-shadow: 9984px 0 0 0 #10b981, 9999px 0 0 0 #10b981, 10014px 0 0 0 #10b981;
+  animation: dot-typing 1.5s infinite linear;
+}
+
+@keyframes dot-typing {
+  0% {
+    box-shadow: 9984px 0 0 0 #10b981, 9999px 0 0 0 #10b981, 10014px 0 0 0 #10b981;
+  }
+  16.667% {
+    box-shadow: 9984px -6px 0 0 #10b981, 9999px 0 0 0 #10b981, 10014px 0 0 0 #10b981;
+  }
+  33.333% {
+    box-shadow: 9984px 0 0 0 #10b981, 9999px 0 0 0 #10b981, 10014px 0 0 0 #10b981;
+  }
+  50% {
+    box-shadow: 9984px 0 0 0 #10b981, 9999px -6px 0 0 #10b981, 10014px 0 0 0 #10b981;
+  }
+  66.667% {
+    box-shadow: 9984px 0 0 0 #10b981, 9999px 0 0 0 #10b981, 10014px 0 0 0 #10b981;
+  }
+  83.333% {
+    box-shadow: 9984px 0 0 0 #10b981, 9999px 0 0 0 #10b981, 10014px -6px 0 0 #10b981;
+  }
+  100% {
+    box-shadow: 9984px 0 0 0 #10b981, 9999px 0 0 0 #10b981, 10014px 0 0 0 #10b981;
+  }
+}
+
+/* Enhance scrollbar for chat */
+.scrollbar-thin::-webkit-scrollbar {
+  width: 6px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: #1f2937;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background-color: #4b5563;
+  border-radius: 3px;
+}
+
+.scrollbar-thumb-gray-700::-webkit-scrollbar-thumb {
+  background-color: #4b5563;
+}
+
+.scrollbar-track-gray-900::-webkit-scrollbar-track {
+  background-color: #111827;
+}
+
+/* General animations */
+@keyframes gradient-flow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 15px 0 rgba(16, 185, 129, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 25px 5px rgba(16, 185, 129, 0.6);
+  }
+}
+
+/* Apply animations to specific elements via classes */
+.animate-gradient-flow {
+  background-size: 200% 200%;
+  animation: gradient-flow 6s ease infinite;
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
