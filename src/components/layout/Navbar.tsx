@@ -30,10 +30,8 @@ const Navbar: React.FC = () => {
     <nav className={navbarClasses}>
       <div className="container mx-auto px-4 flex justify-between items-center">
         <Link to="/" className="text-3xl font-extrabold text-white flex items-center">
-          <img src="/logo.png" alt="Aora Logo" className="h-14 w-auto mr-4" />
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-emerald-500">Aora</span>
+          <img src="/logo.png" alt="Aora Logo" className="h-20 w-auto mr-4" />
         </Link>
-        
         {/* Desktop Menu */}
         <div className="hidden md:flex items-center space-x-10">
           <NavLink to="/agents"><span className="text-lg">Agents</span></NavLink>

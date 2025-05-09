@@ -1,9 +1,52 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Terminal, Zap, ArrowRight } from 'lucide-react';
 import Button from '../ui/Button';
 import { Link } from 'react-router-dom';
+import { createClient } from '@supabase/supabase-js';
+
+const supabaseUrl = 'https://btcozgnswtiozjerqihc.supabase.co';
+const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ0Y296Z25zd3Rpb3pqZXJxaWhjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDE5MDM4MDQsImV4cCI6MjA1NzQ3OTgwNH0.2TLAMnBjzS9c8hcZQ5GqBfDvpj-0Zs12WvIOAGB_7JA';
+const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 const Hero: React.FC = () => {
+  const [word, setWord] = useState<string>('Launching Q3 2025'); // Default word
+
+  useEffect(() => {
+    const fetchWord = async () => {
+      const { data, error } = await supabase
+        .from('words') // Assuming your table is named 'words'
+        .select('word')
+        .order('id', { ascending: false }) // Get the latest word based on id
+        .limit(1)
+        .single();
+
+      if (error) {
+        console.error('Error fetching word. Supabase error:', JSON.stringify(error, null, 2));
+      } else if (data) {
+        setWord(data.word);
+      }
+    };
+
+    fetchWord();
+
+    const channel = supabase
+      .channel('custom-all-channel')
+      .on(
+        'postgres_changes',
+        { event: '*', schema: 'public', table: 'words' }, // Assuming your table is named 'words'
+        (payload) => {
+          if (payload.new && 'word' in payload.new) {
+            setWord((payload.new as { word: string }).word);
+          }
+        }
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, []);
+
   return (
     <div className="relative overflow-hidden bg-gray-950 pt-24 pb-16 md:pt-32 md:pb-24">
       {/* Background grid */}
@@ -20,7 +63,7 @@ const Hero: React.FC = () => {
         <div className="text-center max-w-4xl mx-auto">
           <div className="inline-flex items-center px-4 py-2 rounded-full bg-gray-800 border border-gray-700 mb-6">
             <span className="flex h-2 w-2 rounded-full bg-green-500 mr-2"></span>
-            <span className="text-sm text-gray-300">Now in alpha — Launching Q3 2025</span>
+            <span className="text-sm text-gray-300">Now in alpha — {word}</span>
           </div>
           
           <h1 className="text-4xl md:text-6xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-emerald-500">
