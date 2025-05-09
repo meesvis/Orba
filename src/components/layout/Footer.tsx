@@ -3,41 +3,35 @@ import { Link } from 'react-router-dom';
 import { Twitter, FileText, Shield, Mail } from 'lucide-react';
 
 interface FooterProps {
-  isVisible?: boolean;
   isHomePage?: boolean;
 }
 
-const Footer: React.FC<FooterProps> = ({ isVisible = false, isHomePage = false }) => {
+const Footer: React.FC<FooterProps> = ({ isHomePage = false }) => {
   if (isHomePage) {
-    const commonStyling = "bg-gray-900 border-t border-gray-800 pt-4 pb-3 text-sm";
-    const dynamicStyling = `
-      fixed bottom-0 left-0 right-0 z-50
-      transition-all duration-500 ease-in-out
-      ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-full'}
-    `;
+    const normalStyling = "bg-gray-900 border-t border-gray-800 pt-10 pb-8 text-base";
 
     return (
       <footer 
-        className={`${commonStyling} ${dynamicStyling}`}
+        className={normalStyling}
       >
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div className="md:col-span-1">
               <Link to="/" className="text-xl font-bold text-white flex items-center">
-                <img src="/logo.png" alt="Aora Logo" className="h-6 w-auto mr-2" />
+                <img src="/logo.png" alt="Aora Logo" className="h-7 w-auto mr-2" />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-emerald-500">Aora</span>
               </Link>
-              <p className="mt-2 text-gray-400 text-xs">
+              <p className="mt-3 text-gray-400 text-sm">
                 AI-powered trading agents for Solana memecoins. The future of decentralized algorithmic trading.
               </p>
-              <div className="mt-3 flex space-x-2">
-                <SocialLink href="https://twitter.com/aora_ai" icon={<Twitter size={16} />} />
+              <div className="mt-4 flex space-x-3">
+                <SocialLink href="https://twitter.com/aora_ai" icon={<Twitter size={18} />} />
               </div>
             </div>
             
             <div>
-              <h3 className="text-white font-medium mb-3">Platform</h3>
-              <ul className="space-y-1.5">
+              <h3 className="text-white font-semibold mb-4 text-lg">Platform</h3>
+              <ul className="space-y-2.5">
                 <FooterLink to="/agents">Agents</FooterLink>
                 <FooterLink to="/dashboard">Dashboard</FooterLink>
                 <FooterLink to="/marketplace">Marketplace</FooterLink>
@@ -46,8 +40,8 @@ const Footer: React.FC<FooterProps> = ({ isVisible = false, isHomePage = false }
             </div>
             
             <div>
-              <h3 className="text-white font-medium mb-3">Resources</h3>
-              <ul className="space-y-1.5">
+              <h3 className="text-white font-semibold mb-4 text-lg">Resources</h3>
+              <ul className="space-y-2.5">
                 <FooterLink to="/whitepaper">Whitepaper</FooterLink>
                 <FooterLink to="/tokenomics">Tokenomics</FooterLink>
                 <FooterLink to="/documentation">Documentation</FooterLink>
@@ -56,8 +50,8 @@ const Footer: React.FC<FooterProps> = ({ isVisible = false, isHomePage = false }
             </div>
             
             <div>
-              <h3 className="text-white font-medium mb-3">Legal</h3>
-              <ul className="space-y-1.5">
+              <h3 className="text-white font-semibold mb-4 text-lg">Legal</h3>
+              <ul className="space-y-2.5">
                 <FooterLink to="/terms">Terms of Service</FooterLink>
                 <FooterLink to="/privacy">Privacy Policy</FooterLink>
                 <FooterLink to="/disclaimer">Risk Disclaimer</FooterLink>
@@ -66,14 +60,14 @@ const Footer: React.FC<FooterProps> = ({ isVisible = false, isHomePage = false }
             </div>
           </div>
           
-          <div className="mt-5 pt-3 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center">
-            <p className="text-gray-500 text-xs">
+          <div className="mt-10 pt-6 border-t border-gray-700 flex flex-col md:flex-row justify-between items-center">
+            <p className="text-gray-500 text-sm">
               &copy; {new Date().getFullYear()} Aora AI. All rights reserved.
             </p>
-            <div className="flex space-x-2 mt-2 md:mt-0">
-              <Link to="/terms" className="text-gray-500 hover:text-gray-400 text-xs">Terms</Link>
-              <Link to="/privacy" className="text-gray-500 hover:text-gray-400 text-xs">Privacy</Link>
-              <Link to="/cookies" className="text-gray-500 hover:text-gray-400 text-xs">Cookies</Link>
+            <div className="flex space-x-3 mt-3 md:mt-0">
+              <Link to="/terms" className="text-gray-500 hover:text-gray-400 text-sm">Terms</Link>
+              <Link to="/privacy" className="text-gray-500 hover:text-gray-400 text-sm">Privacy</Link>
+              <Link to="/cookies" className="text-gray-500 hover:text-gray-400 text-sm">Cookies</Link>
             </div>
           </div>
         </div>
@@ -94,7 +88,7 @@ const FooterLink: React.FC<FooterLinkProps> = ({ to, children }) => {
     <li>
       <Link 
         to={to} 
-        className="text-gray-400 hover:text-green-400 transition-colors text-sm"
+        className="text-gray-400 hover:text-green-400 transition-colors text-base"
       >
         {children}
       </Link>

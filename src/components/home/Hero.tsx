@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Terminal, Zap, ArrowRight } from 'lucide-react';
+import { Terminal, Zap, ArrowRight, Clipboard, Check } from 'lucide-react';
 import Button from '../ui/Button';
 import { Link } from 'react-router-dom';
 import { createClient } from '@supabase/supabase-js';
@@ -10,6 +10,7 @@ const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 const Hero: React.FC = () => {
   const [word, setWord] = useState<string>('Launching Q3 2025'); // Default word
+  const [copied, setCopied] = useState(false); // State for copy feedback
 
   useEffect(() => {
     const fetchWord = async () => {
@@ -35,20 +36,53 @@ const Hero: React.FC = () => {
         'postgres_changes',
         { event: '*', schema: 'public', table: 'words' }, // Assuming your table is named 'words'
         (payload) => {
+          console.log('Supabase Realtime event received for table words:', payload);
           if (payload.new && 'word' in payload.new) {
+            console.log('Updating word from payload:', (payload.new as { word: string }).word);
             setWord((payload.new as { word: string }).word);
+          } else {
+            console.log('Payload did not contain new word data or payload.new is null. Current payload:', payload);
           }
         }
       )
-      .subscribe();
+      .subscribe((status, err) => {
+        if (status === 'SUBSCRIBED') {
+          console.log('Successfully subscribed to Supabase Realtime for table: words');
+        } else {
+          console.error('Supabase Realtime subscription failed. Status:', status, 'Error:', err);
+        }
+      });
 
     return () => {
       supabase.removeChannel(channel);
     };
   }, []);
 
+  const handleCopy = () => {
+    console.log('handleCopy called. Current word:', word);
+    if (!navigator.clipboard) {
+      console.error('Clipboard API not available.');
+      alert('Clipboard API not available in your browser or context.');
+      return;
+    }
+    console.log('Clipboard API is available.');
+
+    navigator.clipboard.writeText(word).then(() => {
+      console.log('Word copied to clipboard successfully:', word);
+      setCopied(true);
+      console.log('setCopied(true) called');
+      setTimeout(() => {
+        setCopied(false);
+        console.log('setCopied(false) called after timeout');
+      }, 2000); // Reset after 2 seconds
+    }).catch(err => {
+      console.error('Failed to copy word: ', err);
+      alert('Failed to copy. See console for details.');
+    });
+  };
+
   return (
-    <div className="relative overflow-hidden bg-gray-950 pt-24 pb-16 md:pt-32 md:pb-24">
+    <div className="relative overflow-hidden bg-gray-950 pt-28 pb-16 md:pt-36 md:pb-24">
       {/* Background grid */}
       <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiMxNDE0MTQiIGZpbGwtb3BhY2l0eT0iMC40Ij48cGF0aCBkPSJNMzYgMzRoLTJ2LTRoMnY0em0wLTZoLTJ2LTRoMnY0em0wLTZoLTJ2LTRoMnY0em0wLTZoLTJWNmgydjR6bS00IDEyaC00di00aDR2NHptMC02aC00di00aDR2NHptMC02aC00VjZoNHY0em0tNiAxMmgtNHYtNGg0djR6bTAtNmgtNHYtNGg0djR6bTAtNmgtNFY2aDR2NHoiLz48L2c+PC9nPjwvc3ZnPg==')] opacity-20"></div>
       
@@ -59,11 +93,22 @@ const Hero: React.FC = () => {
       <div className="absolute inset-x-0 bottom-0 h-64 bg-gradient-to-t from-gray-950 to-transparent"></div>
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-green-500/20 rounded-full blur-3xl"></div>
       
+      {/* Adjusted z-index to be lower than Navbar */}
       <div className="container mx-auto px-4 relative z-10">
         <div className="text-center max-w-4xl mx-auto">
           <div className="inline-flex items-center px-4 py-2 rounded-full bg-gray-800 border border-gray-700 mb-6">
             <span className="flex h-2 w-2 rounded-full bg-green-500 mr-2"></span>
-            <span className="text-sm text-gray-300">Now in alpha — {word}</span>
+            <span className="text-sm text-gray-300 mr-2">{word}</span>
+            <button 
+              onClick={() => { 
+                console.log('Copy button JSX onClick triggered'); 
+                handleCopy(); 
+              }}
+              className="p-1 rounded text-gray-400 hover:text-green-400 transition-colors focus:outline-none"
+              title="Copy to clipboard"
+            >
+              {copied ? <Check size={16} className="text-green-400" /> : <Clipboard size={16} />}
+            </button>
           </div>
           
           <h1 className="text-4xl md:text-6xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-emerald-500">
@@ -79,7 +124,7 @@ const Hero: React.FC = () => {
               <Button 
                 size="lg" 
                 leftIcon={<Terminal size={18} />}
-                className="min-w-40"
+                className="min-w-56 px-6" /* Further increased min-width */
               >
                 Create Agent
               </Button>
@@ -90,7 +135,7 @@ const Hero: React.FC = () => {
                 variant="outline" 
                 size="lg" 
                 rightIcon={<ArrowRight size={18} />}
-                className="min-w-40"
+                className="min-w-56 px-6" /* Further increased min-width */
               >
                 Read Whitepaper
               </Button>
