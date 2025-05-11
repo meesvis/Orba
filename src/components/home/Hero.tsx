@@ -124,7 +124,7 @@ const Hero: React.FC = () => {
               <Button 
                 size="lg" 
                 leftIcon={<Terminal size={18} />}
-                className="min-w-44"
+                className="min-w-56 px-6" /* Further increased min-width */
               >
                 Create Agent
               </Button>
@@ -134,8 +134,8 @@ const Hero: React.FC = () => {
               <Button 
                 variant="outline" 
                 size="lg" 
-                rightIcon={<ArrowRight size={18} className="ml-2" />}
-                className="min-w-45 px-4" /* Further increased min-width */
+                rightIcon={<ArrowRight size={18} />}
+                className="min-w-56 px-6" /* Further increased min-width */
               >
                 Read Whitepaper
               </Button>
