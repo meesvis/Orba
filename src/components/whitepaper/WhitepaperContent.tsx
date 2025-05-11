@@ -14,8 +14,8 @@ const WhitepaperContent: React.FC = () => {
             <div className="mt-4 text-gray-500">v1.0 | June 2025</div>
           </div>
           
-          <div className="prose prose-invert max-w-none prose-a:text-green-400">
-            <h2 className="font-bold text-white">1. Abstract</h2>
+          <div className="prose prose-invert max-w-none prose-headings:text-green-400 prose-a:text-green-400">
+            <h2>1. Abstract</h2>
             <p>
               Aora introduces a paradigm shift in cryptocurrency trading by leveraging artificial intelligence 
               to create personalized trading agents specifically optimized for the volatile memecoin market on Solana. 
@@ -23,7 +23,7 @@ const WhitepaperContent: React.FC = () => {
               to identify and capitalize on trading opportunities with greater precision and speed than human traders.
             </p>
             
-            <h2 className="font-bold text-white">2. Introduction</h2>
+            <h2>2. Introduction</h2>
             <p>
               The Solana memecoin ecosystem has experienced explosive growth, characterized by extreme volatility, 
               rapid price movements, and unprecedented opportunities. However, navigating this landscape effectively 
@@ -37,7 +37,7 @@ const WhitepaperContent: React.FC = () => {
               trading process.
             </p>
             
-            <h2 className="font-bold text-white">3. System Architecture</h2>
+            <h2>3. System Architecture</h2>
             <p>
               The Aora platform comprises several integrated components:
             </p>
@@ -62,7 +62,7 @@ const WhitepaperContent: React.FC = () => {
               </li>
             </ul>
             
-            <h2 className="font-bold text-white">4. Agent Creation and Customization</h2>
+            <h2>4. Agent Creation and Customization</h2>
             <p>
               Users can create personalized trading agents by:
             </p>
@@ -77,7 +77,7 @@ const WhitepaperContent: React.FC = () => {
               Once configured, agents operate autonomously while providing real-time updates and performance metrics to users.
             </p>
             
-            <h2 className="font-bold text-white">5. $AORA Token Utility</h2>
+            <h2>5. $AORA Token Utility</h2>
             <p>
               The $AORA token serves as the core utility and governance token for the ecosystem:
             </p>
@@ -99,19 +99,19 @@ const WhitepaperContent: React.FC = () => {
               </li>
             </ul>
             
-            <h2 className="font-bold text-white">6. Security Measures</h2>
+            <h2>6. Security Measures</h2>
             <p>
               Aora implements robust security measures:
             </p>
             <ul>
-              <li><strong>Non-custodial design</strong> ensuring users maintain control of their funds</li>
-              <li><strong>Permission-based execution</strong> limiting agent actions to authorized operations</li>
-              <li><strong>Encryption of all sensitive data</strong> and communications</li>
-              <li><strong>Regular security audits</strong> by leading blockchain security firms</li>
-              <li><strong>Bug bounty program</strong> to incentivize vulnerability disclosure</li>
+              <li>Non-custodial design ensuring users maintain control of their funds</li>
+              <li>Permission-based execution limiting agent actions to authorized operations</li>
+              <li>Encryption of all sensitive data and communications</li>
+              <li>Regular security audits by leading blockchain security firms</li>
+              <li>Bug bounty program to incentivize vulnerability disclosure</li>
             </ul>
             
-            <h2 className="font-bold text-white">7. Roadmap</h2>
+            <h2>7. Roadmap</h2>
             <p>
               Our development roadmap encompasses:
             </p>
@@ -136,7 +136,7 @@ const WhitepaperContent: React.FC = () => {
               </li>
             </ul>
             
-            <h2 className="font-bold text-white">8. Conclusion</h2>
+            <h2>8. Conclusion</h2>
             <p>
               Aora represents a significant advancement in cryptocurrency trading technology, democratizing access to 
               sophisticated trading algorithms previously available only to institutional investors. By combining artificial 
