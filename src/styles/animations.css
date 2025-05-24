@@ -5,33 +5,33 @@
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background-color: #10b981;
-  color: #10b981;
-  box-shadow: 9984px 0 0 0 #10b981, 9999px 0 0 0 #10b981, 10014px 0 0 0 #10b981;
+  background-color: #3b82f6;
+  color: #3b82f6;
+  box-shadow: 9984px 0 0 0 #3b82f6, 9999px 0 0 0 #3b82f6, 10014px 0 0 0 #3b82f6;
   animation: dot-typing 1.5s infinite linear;
 }
 
 @keyframes dot-typing {
   0% {
-    box-shadow: 9984px 0 0 0 #10b981, 9999px 0 0 0 #10b981, 10014px 0 0 0 #10b981;
+    box-shadow: 9984px 0 0 0 #3b82f6, 9999px 0 0 0 #3b82f6, 10014px 0 0 0 #3b82f6;
   }
   16.667% {
-    box-shadow: 9984px -6px 0 0 #10b981, 9999px 0 0 0 #10b981, 10014px 0 0 0 #10b981;
+    box-shadow: 9984px -6px 0 0 #3b82f6, 9999px 0 0 0 #3b82f6, 10014px 0 0 0 #3b82f6;
   }
   33.333% {
-    box-shadow: 9984px 0 0 0 #10b981, 9999px 0 0 0 #10b981, 10014px 0 0 0 #10b981;
+    box-shadow: 9984px 0 0 0 #3b82f6, 9999px 0 0 0 #3b82f6, 10014px 0 0 0 #3b82f6;
   }
   50% {
-    box-shadow: 9984px 0 0 0 #10b981, 9999px -6px 0 0 #10b981, 10014px 0 0 0 #10b981;
+    box-shadow: 9984px 0 0 0 #3b82f6, 9999px -6px 0 0 #3b82f6, 10014px 0 0 0 #3b82f6;
   }
   66.667% {
-    box-shadow: 9984px 0 0 0 #10b981, 9999px 0 0 0 #10b981, 10014px 0 0 0 #10b981;
+    box-shadow: 9984px 0 0 0 #3b82f6, 9999px 0 0 0 #3b82f6, 10014px 0 0 0 #3b82f6;
   }
   83.333% {
-    box-shadow: 9984px 0 0 0 #10b981, 9999px 0 0 0 #10b981, 10014px -6px 0 0 #10b981;
+    box-shadow: 9984px 0 0 0 #3b82f6, 9999px 0 0 0 #3b82f6, 10014px -6px 0 0 #3b82f6;
   }
   100% {
-    box-shadow: 9984px 0 0 0 #10b981, 9999px 0 0 0 #10b981, 10014px 0 0 0 #10b981;
+    box-shadow: 9984px 0 0 0 #3b82f6, 9999px 0 0 0 #3b82f6, 10014px 0 0 0 #3b82f6;
   }
 }
 
@@ -72,22 +72,31 @@
 
 @keyframes float {
   0% {
-    transform: translateY(0px);
+    transform: translateY(0px) rotate(0deg);
   }
   50% {
-    transform: translateY(-10px);
+    transform: translateY(-10px) rotate(5deg);
   }
   100% {
-    transform: translateY(0px);
+    transform: translateY(0px) rotate(0deg);
   }
 }
 
 @keyframes pulse-glow {
   0%, 100% {
-    box-shadow: 0 0 15px 0 rgba(16, 185, 129, 0.4);
+    box-shadow: 0 0 15px 0 rgba(59, 130, 246, 0.4);
   }
   50% {
-    box-shadow: 0 0 25px 5px rgba(16, 185, 129, 0.6);
+    box-shadow: 0 0 25px 5px rgba(59, 130, 246, 0.6);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
   }
 }
 
@@ -103,4 +112,10 @@
 
 .animate-pulse-glow {
   animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.animate-shimmer {
+  background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.1), transparent);
+  background-size: 1000px 100%;
+  animation: shimmer 2s infinite linear;
 }
